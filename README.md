@@ -22,8 +22,24 @@ Full analysis is available in our launch post, **[Traversing the Frontier of Sup
 ### Prerequisites
 - Python 3.11+
 - API Keys for the models you wish to test (Gemini, OpenAI, etc.)
+- 8GB+ RAM recommended
 
 ### Quick Start
+
+**Option 1: Automated Setup (Recommended)**
+
+```bash
+./setup.sh
+```
+
+Then edit `.env` with your API keys and run:
+
+```bash
+source .venv/bin/activate
+python main.py
+```
+
+**Option 2: Manual Setup**
 
 1. Setup the environment:
    ```bash
@@ -32,20 +48,36 @@ Full analysis is available in our launch post, **[Traversing the Frontier of Sup
    pip install -r requirements.txt
    ```
 
-2. Create a .env file in the root directory. You must include keys for the models you intend to run.
-
+2. Create a .env file in the root directory:
     ```bash
-    GEMINI_API_KEY=...
-    OPENAI_API_KEY=...
+    cp .env.example .env
+    # Edit .env and add your API keys
     ```
 
-3. Modify the constants in main.py to set the problem set, number of problems, etc. Then run the script:
+3. Create output directory:
+    ```bash
+    mkdir -p output
+    ```
 
+4. Run the solver:
     ```bash
     python main.py
     ```
 
-4. By default, the code runs the Poetiq 3 config described in the blog post. You can uncomment other ones or modify the config in config.py
+### Configuration
+
+By default, the code runs **Poetiq(Gemini-3-a)** with 1 expert. To use other configurations, edit `arc_agi/config.py`:
+
+- **Poetiq(Gemini-3-a)**: `NUM_EXPERTS = 1` (default, fastest)
+- **Poetiq(Gemini-3-b)**: `NUM_EXPERTS = 2` (better accuracy)
+- **Poetiq(Gemini-3-c)**: `NUM_EXPERTS = 8` (best accuracy, slowest)
+
+To customize which problems to solve, edit `main.py`:
+- `NUM_PROBLEMS`: Number of problems to solve (None = all)
+- `SELECTED_PROBLEMS`: List of specific problem IDs to solve
+- `DATA_CHALLENGES`: Path to challenge dataset (ARC-AGI-1 or ARC-AGI-2)
+
+For detailed setup instructions, troubleshooting, and advanced usage, see **[SETUP_GUIDE.md](SETUP_GUIDE.md)**.
 
 ## 📄 Contact
 If you use this code or these results in your research, please cite our blog post:

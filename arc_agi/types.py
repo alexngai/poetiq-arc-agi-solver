@@ -34,6 +34,7 @@ class ExpertConfig(TypedDict):
     max_total_time: Optional[int]
     num_experts: int
     per_iteration_retries: int
+    timeout_s: float
 
 
 MessageRole = Literal["user", "assistant", "system"]

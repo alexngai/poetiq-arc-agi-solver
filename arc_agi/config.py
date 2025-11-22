@@ -29,6 +29,7 @@ CONFIG_LIST: list[ExpertConfig] = [
     'shuffle_examples': True,
     'improving_order': True,
     'return_best_result': True,
+    'timeout_s': 5.0, # timeout for sandbox execution in seconds
     # Voting parameters
     'use_new_voting': True,
     'count_failed_matches': True,
