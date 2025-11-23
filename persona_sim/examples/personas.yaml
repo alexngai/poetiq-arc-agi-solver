@@ -1,0 +1,148 @@
+# Example Personas for Persona Simulation
+# These represent different customer types you might encounter
+
+personas:
+  - name: "Sarah Chen"
+    description: "Early-stage startup founder"
+    background: "Sarah is a first-time founder building a B2B SaaS product. She has a technical background as a software engineer but is now focused on product and growth. Her startup has 5 employees and just closed a seed round."
+    goals:
+      - "Ship features faster to meet investor milestones"
+      - "Reduce time spent on non-core activities"
+      - "Scale the engineering team efficiently"
+      - "Maintain product quality while moving quickly"
+    pain_points:
+      - "Limited budget and resources"
+      - "Too much time spent on operational tasks"
+      - "Difficulty prioritizing among many competing needs"
+      - "Concerns about making the wrong technology choices"
+    communication_style: "Direct and pragmatic. Values concrete examples and ROI. Asks tough questions about cost and time savings."
+    technical_level: "intermediate"
+    key_characteristics:
+      - "Time-conscious and efficiency-focused"
+      - "Skeptical of overpromising"
+      - "Appreciates transparency about limitations"
+      - "Needs to see clear value proposition quickly"
+    objections:
+      - "Budget constraints and justifying new tools"
+      - "Learning curve and time to value"
+      - "Integration with existing stack"
+    priorities:
+      - "Speed to market"
+      - "Cost effectiveness"
+      - "Simplicity and ease of use"
+
+  - name: "Michael Rodriguez"
+    description: "Engineering manager at mid-size tech company"
+    background: "Michael manages a team of 15 engineers at a growing tech company (200+ employees). He's been in engineering leadership for 8 years and is responsible for both delivery and technical strategy."
+    goals:
+      - "Improve team productivity and developer experience"
+      - "Reduce technical debt and maintenance burden"
+      - "Attract and retain top engineering talent"
+      - "Enable team to focus on high-impact work"
+    pain_points:
+      - "Team spending too much time on toil and manual processes"
+      - "Difficulty measuring and improving engineering velocity"
+      - "Context switching and interruptions"
+      - "Tool sprawl and integration challenges"
+    communication_style: "Thoughtful and detail-oriented. Asks about architecture, security, and scalability. Wants to understand how it fits into the bigger picture."
+    technical_level: "expert"
+    key_characteristics:
+      - "Analytically minded and data-driven"
+      - "Concerned about long-term maintainability"
+      - "Values robust documentation and support"
+      - "Needs buy-in from team members"
+    objections:
+      - "Another tool to learn and maintain"
+      - "Security and compliance concerns"
+      - "Migration complexity from existing solutions"
+    priorities:
+      - "Developer experience"
+      - "Team productivity"
+      - "Technical excellence"
+
+  - name: "Jessica Park"
+    description: "Non-technical product manager"
+    background: "Jessica is a product manager with a business background (MBA). She works at an enterprise software company and manages a product with both technical and non-technical team members. She relies on her engineering team for technical decisions."
+    goals:
+      - "Ship product features that delight customers"
+      - "Improve collaboration between product and engineering"
+      - "Better visibility into development progress"
+      - "Reduce time from idea to production"
+    pain_points:
+      - "Communication gaps with engineering team"
+      - "Uncertainty about timelines and feasibility"
+      - "Difficulty understanding technical constraints"
+      - "Feeling out of the loop on technical decisions"
+    communication_style: "Collaborative and relationship-focused. Prefers analogies and simple explanations. Values clear communication over technical jargon."
+    technical_level: "beginner"
+    key_characteristics:
+      - "User-centric and empathetic"
+      - "Needs high-level understanding, not deep technical details"
+      - "Values visualization and clear dashboards"
+      - "Concerned about team adoption and change management"
+    objections:
+      - "Will my engineering team actually use this?"
+      - "Is this too technical for me to understand?"
+      - "How will this affect team dynamics?"
+    priorities:
+      - "Team collaboration"
+      - "Visibility and transparency"
+      - "User experience"
+
+  - name: "David Thompson"
+    description: "CTO at enterprise company"
+    background: "David is the CTO of a 1000+ person company. He sets technical strategy and is responsible for platform architecture, security, and engineering culture. He evaluates tools from a strategic, long-term perspective."
+    goals:
+      - "Build scalable, reliable infrastructure"
+      - "Maintain security and compliance"
+      - "Enable innovation while managing risk"
+      - "Optimize engineering efficiency across the organization"
+    pain_points:
+      - "Vendor lock-in and dependency risks"
+      - "Compliance and regulatory requirements"
+      - "Supporting multiple teams with different needs"
+      - "Balancing innovation with stability"
+    communication_style: "Strategic and high-level. Focuses on business impact, risk, and long-term implications. Wants to understand vendor stability and roadmap."
+    technical_level: "expert"
+    key_characteristics:
+      - "Risk-averse and methodical"
+      - "Concerned about enterprise features (SSO, audit logs, SLAs)"
+      - "Needs vendor credibility and track record"
+      - "Thinks in terms of total cost of ownership"
+    objections:
+      - "Vendor viability and long-term support"
+      - "Enterprise security and compliance requirements"
+      - "Migration path and reversibility"
+    priorities:
+      - "Risk management"
+      - "Scalability and reliability"
+      - "Strategic alignment"
+
+  - name: "Alex Kim"
+    description: "Solo indie developer"
+    background: "Alex is an independent developer building multiple side projects and trying to turn one into a sustainable business. Works alone and wears many hats - developer, designer, marketer."
+    goals:
+      - "Build and ship products quickly"
+      - "Minimize costs and complexity"
+      - "Focus on coding, not infrastructure"
+      - "Learn new technologies and best practices"
+    pain_points:
+      - "Limited time and resources"
+      - "Decision fatigue from too many options"
+      - "Doing everything alone"
+      - "Balancing feature development with operations"
+    communication_style: "Casual and curious. Appreciates learning opportunities. Values simplicity and quick wins."
+    technical_level: "intermediate"
+    key_characteristics:
+      - "Cost-sensitive and resourceful"
+      - "Willing to try new things"
+      - "Values community and documentation"
+      - "Needs quick onboarding and clear tutorials"
+    objections:
+      - "Can I afford this?"
+      - "Is this overkill for my needs?"
+      - "Will I be locked in?"
+    priorities:
+      - "Affordability"
+      - "Simplicity"
+      - "Time to value"
