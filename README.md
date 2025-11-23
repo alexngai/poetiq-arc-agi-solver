@@ -59,12 +59,15 @@ A sophisticated multi-agent simulation system for optimizing customer communicat
 ### Features
 
 - **Multi-Agent Simulations**: Interviewer and interviewee agents engage in realistic conversations
+- **Multiple Agent Types**: Simple agents with RAG, or Computer Use agents with tool access
+- **Computer Use Capabilities**: Agents can browse files, search code, and gather real-time information
 - **Persona System**: Define detailed customer personas with backgrounds, goals, pain points, and communication styles
 - **Communication Strategies**: Define and optimize how to explain your product to different audiences
 - **Knowledge Base Integration**: RAG system for providing context-aware responses
 - **LLM-as-a-Judge Evaluation**: Comprehensive scoring of conversation quality and effectiveness
 - **DSPy Optimization**: Iteratively improve strategies based on evaluation feedback
 - **Batch Processing**: Run simulations across multiple personas efficiently
+- **Extensible Architecture**: Factory pattern for custom agent implementations
 
 ### Quick Start (Persona Simulation)
 

@@ -125,6 +125,8 @@ class ConversationConfig(BaseModel):
     knowledge_base_path: Optional[str] = None
     temperature: float = 0.7
     model: str = "claude-sonnet-4-5-20250929"
+    interviewer_agent_type: str = "simple"  # Agent type: "simple", "computer_use", or custom
+    allowed_paths: Optional[List[str]] = None  # For computer use agents
 
 
 class Conversation(BaseModel):

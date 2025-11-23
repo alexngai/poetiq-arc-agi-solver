@@ -16,7 +16,7 @@ from ..models import (
     Questionnaire,
     SimulationResult,
 )
-from ..agents import InterviewerAgent, IntervieweeAgent
+from ..agents import IntervieweeAgent, create_interviewer_agent
 from ..conversation import ConversationEngine
 from ..knowledge import KnowledgeBase, build_knowledge_base
 from ..evaluation import (
@@ -83,6 +83,8 @@ class PersonaSimulator:
         max_turns: int = 20,
         questionnaire: Optional[Questionnaire] = None,
         verbose: bool = True,
+        interviewer_agent_type: str = "simple",
+        allowed_paths: Optional[List[str]] = None,
     ) -> SimulationResult:
         """
         Run a single conversation simulation.
@@ -93,11 +95,14 @@ class PersonaSimulator:
             max_turns: Maximum conversation turns
             questionnaire: Optional pre-defined questionnaire
             verbose: Whether to print conversation progress
+            interviewer_agent_type: Type of interviewer agent ("simple", "computer_use", etc.)
+            allowed_paths: Allowed paths for computer use agents
 
         Returns:
             Simulation result
         """
         logger.info(f"Starting simulation with persona: {persona.name}")
+        logger.info(f"Using interviewer agent type: {interviewer_agent_type}")
 
         # Create conversation configuration
         config = ConversationConfig(
@@ -108,14 +113,18 @@ class PersonaSimulator:
             product_description=self.product_description,
             temperature=self.temperature,
             model=self.model,
+            interviewer_agent_type=interviewer_agent_type,
+            allowed_paths=allowed_paths,
         )
 
-        # Create agents
-        interviewer = InterviewerAgent(
+        # Create agents using factory
+        interviewer = create_interviewer_agent(
+            agent_type=interviewer_agent_type,
             strategy=strategy,
             knowledge_base=self.knowledge_base,
             product_name=self.product_name,
             product_description=self.product_description,
+            allowed_paths=allowed_paths,
             model=self.model,
             temperature=self.temperature,
             anthropic_api_key=self.anthropic_api_key,
@@ -190,6 +199,8 @@ class PersonaSimulator:
         personas: List[Persona],
         max_turns: int = 20,
         verbose: bool = False,
+        interviewer_agent_type: str = "simple",
+        allowed_paths: Optional[List[str]] = None,
     ) -> List[SimulationResult]:
         """
         Run simulations with multiple personas.
@@ -199,6 +210,8 @@ class PersonaSimulator:
             personas: List of personas to simulate
             max_turns: Maximum conversation turns
             verbose: Whether to print progress
+            interviewer_agent_type: Type of interviewer agent to use
+            allowed_paths: Allowed paths for computer use agents
 
         Returns:
             List of simulation results
@@ -214,6 +227,8 @@ class PersonaSimulator:
                     persona=persona,
                     max_turns=max_turns,
                     verbose=verbose,
+                    interviewer_agent_type=interviewer_agent_type,
+                    allowed_paths=allowed_paths,
                 )
                 results.append(result)
 

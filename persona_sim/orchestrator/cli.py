@@ -123,6 +123,8 @@ def run_simulations(args):
                 persona=persona,
                 max_turns=args.max_turns,
                 verbose=args.verbose,
+                interviewer_agent_type=args.agent_type,
+                allowed_paths=args.allowed_paths,
             )
             results.append(result)
 
@@ -310,6 +312,17 @@ def main():
         type=float,
         default=0.7,
         help="Temperature for generation",
+    )
+    sim_parser.add_argument(
+        "--agent-type",
+        default="simple",
+        choices=["simple", "computer_use"],
+        help="Type of interviewer agent (simple or computer_use)",
+    )
+    sim_parser.add_argument(
+        "--allowed-paths",
+        nargs="+",
+        help="Allowed paths for computer use agents (space-separated list)",
     )
     sim_parser.add_argument(
         "--verbose",

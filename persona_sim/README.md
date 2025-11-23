@@ -63,9 +63,34 @@ The framework consists of several interconnected components:
 - All models are serializable for storage and analysis
 
 ### 2. Agents (`agents/`)
-- **InterviewerAgent**: Explains the product and follows a communication strategy
+- **InterviewerAgent** (Simple): Explains the product and follows a communication strategy
+- **ComputerUseInterviewerAgent**: Enhanced agent with tool access for browsing docs, searching code, etc.
 - **IntervieweeAgent**: Maintains a persona and responds authentically
-- Both use Claude via the Anthropic API
+- **AgentFactory**: Factory pattern for creating different agent types
+- All agents use Claude via the Anthropic API
+
+#### Agent Types
+
+The framework supports multiple interviewer agent types:
+
+1. **Simple Agent** (`agent_type="simple"`):
+   - Basic agent with knowledge base (RAG) access
+   - Good for general conversations
+   - Lower latency, fewer API calls
+
+2. **Computer Use Agent** (`agent_type="computer_use"`):
+   - Enhanced agent with tool capabilities
+   - Can browse files, search code, run safe commands
+   - Perfect for technical conversations requiring specific details
+   - Tools available:
+     - `read_file`: Read documentation or code files
+     - `list_directory`: Explore directory structure
+     - `search_files`: Find files by name pattern
+     - `search_code`: Search for code patterns using grep
+     - `run_command`: Run safe read-only commands
+
+3. **Custom Agents**:
+   - Register your own agent implementations via `AgentFactory.register_agent_type()`
 
 ### 3. Knowledge Base (`knowledge/`)
 - **RAG system** using LangChain + ChromaDB
@@ -123,6 +148,16 @@ python -m persona_sim.orchestrator.cli simulate \
   --product-description "An AI-powered development tool" \
   --knowledge-dir ./docs \
   --max-turns 20
+
+# With computer use agent (for technical conversations)
+python -m persona_sim.orchestrator.cli simulate \
+  --personas persona_sim/examples/personas.yaml \
+  --strategy persona_sim/examples/strategy.yaml \
+  --product-name "DevTool X" \
+  --product-description "An AI-powered development tool" \
+  --agent-type computer_use \
+  --allowed-paths ./docs ./src \
+  --max-turns 20
 ```
 
 ### 2. Optimizing Strategies
@@ -165,11 +200,20 @@ simulator = PersonaSimulator(
     knowledge_base=kb,
 )
 
-# Run simulation
+# Run simulation with simple agent
 result = simulator.run_simulation(
     strategy=strategy,
     persona=personas[0],
     max_turns=20,
+)
+
+# Run simulation with computer use agent
+result = simulator.run_simulation(
+    strategy=strategy,
+    persona=personas[0],
+    max_turns=20,
+    interviewer_agent_type="computer_use",
+    allowed_paths=["./docs", "./src"],
 )
 
 # Access results
@@ -336,17 +380,67 @@ custom_q = Questionnaire(
 )
 ```
 
-### Custom Agents
+### Computer Use Agents
 
-Extend base agents for specialized behavior:
+The computer use agent provides enhanced capabilities for technical conversations:
+
+**When to use:**
+- Technical personas asking detailed questions
+- Need to reference specific code or documentation
+- Want to demonstrate actual implementation details
+- Explaining complex architectural concepts
+
+**How it works:**
+The agent uses tools to:
+- Browse and read files from allowed directories
+- Search code repositories for specific patterns
+- List directory structures
+- Run safe read-only commands
+
+**Security:**
+- Restricted to allowed paths only
+- Only safe read-only commands permitted
+- No write operations or destructive commands
+- Configurable path restrictions per simulation
+
+**Example:**
+```python
+# Create simulation with computer use agent
+result = simulator.run_simulation(
+    strategy=technical_strategy,
+    persona=engineer_persona,
+    interviewer_agent_type="computer_use",
+    allowed_paths=[
+        "./docs",  # Documentation directory
+        "./src",   # Source code directory
+    ],
+)
+```
+
+See `examples/computer_use_example.py` for a complete working example.
+
+### Custom Agent Types
+
+Register your own agent implementations:
 
 ```python
-from persona_sim.agents import BaseAgent
+from persona_sim.agents import BaseAgent, AgentFactory
 
-class CustomInterviewerAgent(BaseAgent):
-    def __call__(self, **kwargs):
-        # Custom logic
-        pass
+class MyCustomAgent(BaseAgent):
+    def __call__(self, conversation_history, conversation, **kwargs):
+        # Your custom logic
+        response = "Your custom implementation"
+        return response
+
+# Register the agent type
+AgentFactory.register_agent_type("my_custom", MyCustomAgent)
+
+# Use it in simulations
+result = simulator.run_simulation(
+    strategy=strategy,
+    persona=persona,
+    interviewer_agent_type="my_custom",
+)
 ```
 
 ## Limitations
